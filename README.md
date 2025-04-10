@@ -85,6 +85,8 @@ En el nmap se visualiza.
 
 **¿Qué servicio es vulnerable a ataques de man-in-the-middle?** SSH
 
+sudo /bin/systemctl start nessusd.service (para inicializar el escaneo de Nessus)
+
 Se realiza un Nessus con un scan basic para poder visualizar las vulnerabilidades.
 
 **¿Cuál es el CVSS asociado a la vulnerabilidad?** 5,9
