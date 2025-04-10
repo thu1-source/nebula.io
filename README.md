@@ -121,5 +121,8 @@ __
 Para ver el resto de preguntas se hace un dig @iptarget web axfr 
 hay que añadir la ip al archivo hosts
 
+~ Task 6 ~
+
+Utilizar GoBuster
 
 
