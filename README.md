@@ -109,7 +109,17 @@ https://security.paloaltonetworks.com/CVE-2023-48795 (para ver la vulnerabilidad
 
 **¿Cuál es el código de verificación de google site?**
 
+nslookup -type=TXT nebula.io 10.10.166.43
+Server:         10.10.166.43
+Address:        10.10.166.43#53
 
+nebula.io       text = "nebula-verification=examplecode123"
+nebula.io       text = "google-site-verification=tyP28J7JAUHA9fw2sHXMgcCC0I6XBmmoVi04VlMewxA"
+
+__
+
+Para ver el resto de preguntas se hace un dig @iptarget web axfr 
+hay que añadir la ip al archivo hosts
 
 
 
