@@ -125,4 +125,19 @@ hay que añadir la ip al archivo hosts
 
 Utilizar GoBuster
 
+Utilizamos el comando 
+
+Gobuster vhost dir -u url -w rutadelwordlist --exclude-lenght 250-400 (para excluir algunos errores notfound, como el 400).
+
+nos saldra status on en verde, si se hace desde kali, iremos a admin.nebula.io (entonces iremos a la carpeta /etc/hosts y dentro pondremos la ip nebula.io y el subdominio
+admin.nebula.io
+
+Veremos que pide un PIN, no lo sabemos, entonces nos toca investigar, le damos a inspeccionar (la herramienta de desarrollo) y veremos que sale un .zip en llamado /git_admin.zip
+
+dentro lo descargamos en la carpeta tmp y lo descomprimimos ahi, veremos que hay un .js llamado script.js, si sabemos leerlo pone una variable llamada function que veremos que más abajo cifra el pin con un hash, más arriba del codgo parece que ese hash esta cifrado en 256, tendremos que descifrarlo. Copiamos el hash y lo metemos en esta pagina web francesa: https://www.dcode.fr/funcion-hash-sha256 - Esto lo que hace es descifrar el codigo hash.
+
+Ahora que tenemos el pin accedemos a la pagina. Se nos abre un panel de SIEM para ver las alertas de intrusiones.
+
+Hacemos el SIEM y entonces nos dara unas cuantas palabras, creamos un id_rsa, ponemos la ip y el id_rsa por ssh y utilizamos el usuario SSH, hemos probado bluffer y entramos por el puerto 1986 que es el que nos ha dado acceso a SSH por nmap. Entramos, hacemos el juego.
+
 
