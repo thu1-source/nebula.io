@@ -179,3 +179,5 @@ $ ls -l
 total 4
 drwxr-xr-x 2 root root 4096 Apr  9 15:17 cmds
 $ 
+
+Vemos que hay otro usuario llamado guakamole y hay un .txt llamado: warning.txt revisamos y pone: Cuidado con "ryuk"
