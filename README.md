@@ -157,17 +157,17 @@ ejecutamos la variable $SHELL
 y nos sale una linea de comandos como así: $ probamos los comandos permitidos por compgen -c y nos da resultado con éxito!
 
 bluffer@Nebula-server:~$ ls
-[Restricted Permission]
+Restricted Permission
 bluffer@Nebula-server:~$ whoami
-[Restricted Permission]
+Restricted Permission
 bluffer@Nebula-server:~$ $PATH
 bash: /home/bluffer/cmds: Is a directory
-[Restricted Permission]
+Restricted Permission
 bluffer@Nebula-server:~$ sh
 Command 'sh' is available in '/bin/sh'
 The command could not be located because '/bin' is not included in the PATH environment variable.
 sh: command not found
-[Restricted Permission]
+Restricted Permission
 bluffer@Nebula-server:~$ export PATH=/bin:/usr/bin
 bluffer@Nebula-server:~$ export SHELL=/bin/sh
 bluffer@Nebula-server:~$ $SHELL
