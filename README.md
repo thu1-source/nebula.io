@@ -166,9 +166,57 @@ nebula.io.              7200    IN      SOA     ns1.nebula.io. admin.nebula.io. 
 
 Utilizar GoBuster
 
-Utilizamos el comando 
+Utilizamos el comando: 
 
-Gobuster vhost dir -u url -w rutadelwordlist --exclude-length 250-400 (para excluir algunos errores notfound, como el 400).
+gobuster dir -u nebula.io -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt --exclude-length 250-400
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://nebula.io
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt
+[+] Negative Status codes:   404
+[+] Exclude Length:          275,297,300,308,315,337,388,353,362,394,274,299,321,365,325,288,306,309,333,385,277,254,322,358,387,298,324,339,363,377,379,389,291,340,357,374,396,397,251,260,280,283,296,349,268,290,335,370,384,284,304,313,316,318,343,398,399,253,273,302,326,342,364,366,382,258,323,354,293,303,341,356,359,360,289,348,259,276,346,367,327,294,391,262,329,330,369,375,400,270,285,336,376,383,390,305,351,352,395,263,320,331,373,393,272,292,257,278,311,256,265,266,287,307,328,334,347,269,279,344,345,372,378,380,381,252,267,310,317,319,392,250,261,301,350,368,255,271,286,314,338,361,282,295,332,355,371,386,281,312,264
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/assets               (Status: 301) [Size: 0] [--> http://nebula.io/assets/]
+Progress: 87664 / 87665 (100.00%)
+===============================================================
+Finished
+===============================================================
+
+Vemos que hay una carpeta llamada assets pero dentro de esa ruta por navegador sale error 404. Probamos a ver si hay virtual hosts con la opción vhost:
+
+gobuster vhost dir -u http://nebula.io -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --append-domain --exclude-length 250-320
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:              http://nebula.io
+[+] Method:           GET
+[+] Threads:          10
+[+] Wordlist:         /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+[+] User Agent:       gobuster/3.6
+[+] Timeout:          10s
+[+] Append Domain:    true
+[+] Exclude Length:   286,303,259,273,319,255,252,256,263,272,282,284,306,269,274,280,281,290,305,320,251,261,267,292,294,260,265,291,296,313,315,250,275,288,298,300,304,308,314,270,276,254,279,293,302,309,317,253,257,277,278,289,307,316,266,295,310,312,262,268,287,258,264,285,299,301,311,318,271,297,283
+===============================================================
+Starting gobuster in VHOST enumeration mode
+===============================================================
+Found: contact_us.nebula.io Status: 400 [Size: 349]
+Found: admin.nebula.io Status: 200 [Size: 2369]
+Found: FireFox_Reco.nebula.io Status: 400 [Size: 349]
+Found: EWbutton_Community.nebula.io Status: 400 [Size: 349]
+Found: EWbutton_GuestBook.nebula.io Status: 400 [Size: 349]
+Found: strona_6.nebula.io Status: 400 [Size: 349]
+Found: strona_11.nebula.io Status: 400 [Size: 349]
+Found: strona_1.nebula.io Status: 400 [Size: 349]
+Found: strona_14.nebula.io Status: 400 [Size: 349]
 
 nos saldra status on en verde, si se hace desde kali, iremos a admin.nebula.io (entonces iremos a la carpeta /etc/hosts y dentro pondremos la ip nebula.io y el subdominio
 admin.nebula.io
@@ -227,6 +275,60 @@ $
 De aqui saltamos a la Task 10, viendo un poco el contenido del sistema con comandos basicos como cat, ls, cd.
 
 Vemos que hay otro usuario llamado guakamole y hay un .txt llamado: warning.txt revisamos y pone: Cuidado con "ryuk"
+
+__
+
+El juego de Bluffer cuando esta cargando le das varias veces al boton del espacio espaciadora y te sale la siguiente información:
+
+***************************************
+*                                     *
+*         NEBULA.IO PRESENTA          *
+*              BLUFFER                *
+*                                     *
+***************************************
+
+   Un viaje a través de las mazmorras   
+       Cargando, por favor espera       
+
+..
+
+Carga interrumpida. Fallo en el sistema
+-e 
+###
+-e 
+
+RYUK V0.02a2 
+
+HANDLER RANSOMWARE FILE
+...
+EXEC CODING
+
+[*] Connecting to server 10.10.6PmP.@*x4
+[*] Connected ...
+[*] Authenticating user : fyc5QNQ0twf*mjc2ebr
+[*] Authentication successful.
+[*] Accessing server resources : kvd2MAV@vxk4mcg!ecv
+[*] Downloading sensitive data : pdAFihaBYt6@*x4-T6Qqvq8ph.6PmP
+[*] GET /admin/config/settings HTTP/1.1
+[*] Host: 127.0.0.1
+[*] Hostname: Nebula Server Kernel
+[*] Authorization: Bearer : <token> CJcKuhwvsYKx3g9-yM.LwGfJEqXT.2u8co_Cid!.bW8ii8np7_KEgDFegEh34F-F42a6QTEmbPyTg </token>
+[*] Data received from server :
+---------------------------
+root::0:0:root:/root:/bin/bash
+admin:x:1:1:admin:/admin:/bin/sh
+---------------------------
+[*] Injecting malicious code
+[*] Sending payload ...
+[*] POST /admin/upload HTTP/1.1
+[*] Content-Type: application/x-www-form-urlencoded
+[*] Payload:
+
+[*] Payload successfully deployed
+[*] Encrypted Server ...
+-e 
+
+¿Qué es RYUK? Ransomware sofisticado para grandes organizaciones, alto rescate, cifrado crítico, propagación por malware.
 
 ~ Task 8 ~
 
