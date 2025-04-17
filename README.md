@@ -335,6 +335,53 @@ admin:x:1:1:admin:/admin:/bin/sh
 Qué hemos probado en esta TASK?
 nmap para ver que puerto ha abierto, la herramienta enum4linux y smbclient.
 
+enum4linux -a 10.10.129.142 
+Starting enum4linux v0.9.1 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Thu Apr 17 04:15:24 2025
+
+ =========================================( Target Information )=========================================
+
+Target ........... 10.10.129.142
+RID Range ........ 500-550,1000-1050
+Username ......... ''
+Password ......... ''
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+
+ ===========================( Enumerating Workgroup/Domain on 10.10.129.142 )===========================
+
+
+[+] Got domain/workgroup name: NEBULA_ROCKS
+
+
+ ===============================( Nbtstat Information for 10.10.129.142 )===============================
+                                                                                                               
+Looking up status of 10.10.129.142                                                                             
+        NEBULA-SERVER   <00> -         B <ACTIVE>  Workstation Service
+        NEBULA-SERVER   <03> -         B <ACTIVE>  Messenger Service
+        NEBULA-SERVER   <20> -         B <ACTIVE>  File Server Service
+        ..__MSBROWSE__. <01> - <GROUP> B <ACTIVE>  Master Browser
+        NEBULA_ROCKS    <00> - <GROUP> B <ACTIVE>  Domain/Workgroup Name
+        NEBULA_ROCKS    <1b> -         B <ACTIVE>  Domain Master Browser
+        NEBULA_ROCKS    <1d> -         B <ACTIVE>  Master Browser
+        NEBULA_ROCKS    <1e> - <GROUP> B <ACTIVE>  Browser Service Elections
+
+        MAC Address = 00-00-00-00-00-00
+
+ ===================================( Session Check on 10.10.129.142 )===================================
+                                                                                                               
+                                                                                                               
+[E] Server doesn't allow session using username '', password ''.  Aborting remainder of tests.    
+
+smbclient -L //10.10.129.142 -p 44544 -N
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        nebula_share    Disk      
+        IPC$            IPC       IPC Service (Nebula.io File Tansfer Server)
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.10.129.142 failed (Error NT_STATUS_CONNECTION_REFUSED)
+Unable to connect with SMB1 -- no workgroup available
+
 ~ Task 9 ~
 Usar la deducción. En el juego estaba el comando OPEN_SMB que abre el puerto de smb que usan, y en el 8 se trataba del protocolo smb, a parte cuando realizas otro nessus te sale la vulnerabilidad. Investigue por internet y fui buscando las respuestas, en este ejercicio fui más de analista e investigador.
 
