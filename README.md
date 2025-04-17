@@ -388,6 +388,52 @@ Usar la deducción. En el juego estaba el comando OPEN_SMB que abre el puerto de
 ~ Task 10 ~
 Mencionado en la TASK 7, como respondi algunas preguntas. Aunque en esta TASK hay que elevar privilegios y hacer uso de Metasploit.
 
+Escape del RBASH:
+
+$ cd /home
+$ ls
+bluffer  guakamole
+$ 
+
+$ ls
+warning.txt
+$ cat warning.txt
+Cuidado con "ryuk"
+
+$ cat hostname
+Nebula-server
+$ uname -a
+Linux Nebula-server 4.4.0-142-generic #168~14.04.1-Ubuntu SMP Sat Jan 19 11:26:28 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+libuuid:x:100:101::/var/lib/libuuid:
+syslog:x:101:104::/home/syslog:/bin/false
+messagebus:x:102:106::/var/run/dbus:/bin/false
+landscape:x:103:109::/var/lib/landscape:/bin/false
+guakamole:x:1000:1000:David Kline,,,:/home/guakamole:/bin/bash
+sshd:x:104:65534::/var/run/sshd:/usr/sbin/nologin
+bind:x:105:112::/var/cache/bind:/bin/false
+bluffer:x:1001:1001:Player Bluffer,,,:/home/bluffer:/bin/rbash
+
+
+
 ~ Task 11 ~
 
 Yo sé que se hace con John the Ripper, ya que conozco el programa pero nunca lo he utilizado, sé que descifra hash.
